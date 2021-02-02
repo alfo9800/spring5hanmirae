@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="replyMapper">
+
+<select id="selectReplyCount" resultType="int">
+select count(*) from tbl_reply where bno = #{bno}
+</select>
+
+<select id="selectReply" resultType="org.edu.vo.ReplyVO">
+select table_b.* from
+(
+    select rownum as rnum, table_a.* from
+    (
+        select * from tbl_reply
+        where bno = #{bno}
+        order by rno desc
+    ) table_a
+<![CDATA[
+    where rownum <= (#{pageVO.queryStartNo}/#{pageVO.queryPerPageNum}+1)* #{pageVO.queryPerPageNum}
+) table_b
+where table_b.rnum > (#{pageVO.queryStartNo}/#{pageVO.queryPerPageNum})* #{pageVO.queryPerPageNum} 
+]]>
+</select>
+
+<update id="updateCountReply">
+update tbl_board set 
+where bno = #{bno}
+</update>
+
+<insert id="insertReply">
+	<selectKey keyProperty="rno" resultType="int" order="BEFORE">
+	select SEQ_RNO.nextval from dual
+	</selectKey>
+insert into tbl_reply (rno, bno, reply_text, replyer, reg_date)
+	values(#{rno}, #{bno}, #{reply_text}, #{replyer}, sysdate)	
+</insert>
+
+<update id="updateReply">
+update tbl_reply set
+	reply_text = #{reply_text},
+	update_date = sysdate
+where rno = #{rno}<!-- 해당되는 게시물 번호만 update -->
+</update>
+
+<delete id="deleteReply">
+delete from tbl_reply
+where rno = #{rno} <!-- 해당되는 게시물 번호만 delete -->
+</delete>
+
+<delete id="deleteReplyAll">
+delete from tbl_reply
+where bno = #{bno}
+</delete>
+
+</mapper>

@@ -1,0 +1,97 @@
+@charset "UTF-8";
+/*미디어쿼리:미디어의 가로크기가 768px이상 이면 아래 스타일 적용*/
+@media all and (min-width:768px) {
+/* 공통사항 시작*/
+ul {text-align:center;}
+/* 공통사항 끝 */
+
+/*헤더영역 시작*/
+.menu-toggle-btn {display:none;}
+.header .gnb {
+display:block;
+position:static; /*absolute에서 static으로 바꿈*/
+background:none;
+width:auto;
+float:right; /*가로위치를 오른쪽을 고정*/
+margin-top:10px;
+}
+.header .gnb li {
+float:left;
+border:none;
+/* width:95px; 수정한 부분 */
+}
+.header .gnb li:last-child {border-bottom:none;} /*가상선택자 여서*/
+.header .gnb li a {
+display:inline-block; /*콘텐츠 내용크기만큼만 자리차지하는 영역*/
+color:#3f51b5;
+padding-left:0px; /*추가한 부분*/
+margin-right:30px; /*추가한 부분*/
+}
+.header .gnb li a:hover {text-decoration:none;}
+/*헤더영역 끝*/
+
+/*슬라이드 영역 시작*/
+.carousel-item, .carousel-item img {height:500px;}
+/*슬라이드 영역 끝*/
+
+
+/*we are 영역 시작*/
+.float-clear {clear:both;} /*clear속성은 float작동을 없애는 역할*/
+.weare-body li {
+float:left; /*세로정렬을 가로정렬로 변경(부트스트랩의 그리드시스템col-12(100%),col-3.col-3,col-3,col-3의 원형)*/
+width:23.046875%;/* (177÷768)×100 = 몇% >>>177은 포토샵레이아웃값의 여백*/
+margin-left:2.604166%;/* (20÷768)×100 = 몇% */
+overflow:hidden; /*반응형list박스에서 가로크기를 벗어나는 이미지 내용은 숨김 처리*/
+}
+.weare-body li img {width:100%; height:auto;}
+.weare-body {margin:10px 3%;}/*가운데 정렬, 10px상하 3%좌우여백*/
+.weare-body li:first-child {margin-left:0px;}
+/*we are 영역 끝*/
+
+/*work 영역 시작*/
+.work-section li {
+float:left;
+width:50%;
+max-height:300px; /*높이가 들쑥날쑥하면 비는 부분이 생겨서 이미지 보이는 공간의 초고 높이를 300px로 고정 */
+overflow:hidden; /*만약에 300px 넘는 이미지는 숨김 처리 */
+}
+/*work 영역 끝*/
+
+/*blog 영역 시작*/
+.blog-section li {
+float:left;/*세로배치가 가로배치로 변함*/
+width:31.59722222222%; /*3개 중 한 개의 가로크기 (242px/768px)*100= 31.59722222222% */
+margin-left:2.60416666666%; /* 1개여백 구하기 (20px/768px)*100= 2.60416666666% */
+height:300px;
+}
+.blog-section li .preview {
+height:200px;
+overflow:hidden;
+/*max-height:200px; 이미지 최대높이를 지정*/
+/*min-height:200px; 이미지 최소높이를 지정*/
+}
+.blog-section li .info2 {
+padding:10px;
+}
+.blog-section li:first-child {/*마지막 li가 아래로 떨어지는 것을 방지하는 역할*/
+margin-left:0px;
+}
+.blog-section li:nth-child(3n+1) { /*1,4,7,10 13.... 위치에 해당되는 것만 적용, n번째 인덱스값이기 때문에 0부터 시작함. */
+margin-left:0px;
+}
+.blog-section hr {display:none;}
+/*blog 영역 끝*/
+
+/*contact 영역 시작*/
+.input-class, .textarea-class {
+float:left;
+width:49%; /*2개로 나누는 가로크기를 49%로 지정*/
+}
+.input-class {
+margin-right:2%;
+}
+.contact-section form textarea {
+min-height:150px;
+}
+/*contact 영역 끝*/
+}
