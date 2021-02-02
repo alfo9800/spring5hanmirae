@@ -14,7 +14,11 @@
 }
 </style>
 
-
+<script>
+if("${naver_msg}" == "fail"){
+	alert("로그인에 실패 했습니다.");
+}
+</script>
 <script>
 if("${param.msg}" == "fail") {
 	alert('로그인에 실패하였습니다. 상세메세지 ${sessionScope["SPRING_SECURITY_LAST_EXCEPTION"].message}');

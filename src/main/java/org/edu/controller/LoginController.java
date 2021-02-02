@@ -43,9 +43,14 @@ public class LoginController {
 	/* session(인증 토큰 정보), state(유효성검증용 UUID정보), code(인증성공/실패코드 ex.200OK/401Error) */
 	//로그인 후 세션 처리 매핑(네이버 아이디 로그인)
 	@RequestMapping(value="/login_callback",method= {RequestMethod.GET, RequestMethod.POST})
-	public String login_callback(Model moedel, @RequestParam String code, @RequestParam String state,
+	public String login_callback(Model moedel, @RequestParam(required=false) String code, @RequestParam String state,
 								 HttpSession session, RedirectAttributes rdat) throws IOException, ParseException {
-
+		//네아로에서 로그인 취소 했을 때 code값이 null일 때 처리
+		if(code == null) {
+			rdat.addFlashAttribute("naver_msg", "fail");
+			return "redirect:/login";
+		}
+		
 		OAuth2AccessToken oauthToken; //토큰으로 사용할 변수 선언
 		
 		//NaverLoginController의 메서드 호출
