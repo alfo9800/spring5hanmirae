@@ -65,9 +65,9 @@ delete from tbl_board where bno = #{bno}
 
 <!-- 게시물등록 시 bno가 자동증가가 안되기 때문에 시퀀스를 사용한 값을 insert쿼리 실행 전에 PK값을 지정 후 사용 -->
 <insert id="insertBoard">
-<selectKey keyProperty="bno" resultType="int" order="BEFORE">
-	select SEQ_BNO.nextval from dual
-</selectKey>
+	<selectKey keyProperty="bno" resultType="int" order="BEFORE">
+	SELECT SEQ_BNO.nextval FROM DUAL
+	</selectKey>
 insert into tbl_board (bno,board_type,title,content,writer,reg_date) 
 values(#{bno},#{board_type},#{title},#{content},#{writer},sysdate)
 </insert>
