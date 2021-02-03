@@ -1,6 +1,6 @@
-@charset "UTF-8";
-@import url(https://fonts.googleapis.com/earlyaccess/nanumgothic.css);
-/* 공통영역 */
+@charset "UTF-8"; /* 한글 */
+@import url(https://fonts.googleapis.com/earlyaccess/nanumgothic.css); /* 외부에서 나눔고딕이라는 글귀를 가져와 사용 */
+/* 폰트 공통영역 */
 body {
 	font-family: 'Nanum Gothic', '나눔 고딕', sans-serif !important;
 	font-size:16px !important;

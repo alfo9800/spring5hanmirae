@@ -122,7 +122,7 @@ public class LoginController {
 		}
 		
 		//세션 정보(로그인 아이디,레벨,회원이름 등..) 저장 시작
-		HttpSession session = request.getSession(); //진입 전 단계에서 발생한 세션(로그인
+		HttpSession session = request.getSession(); //진입 전 단계에서 발생한 세션
 		if(enabled) { //인증처리가 true라면 아래에서 세션 등록 시작
 			//자바8이상에서만 지원되는 람다식 사용해셔 DB쿼리에서 GET값 getAuthority()비교 구문 처리 -> levels변수에 권한값 지정.
 			Collection<? extends GrantedAuthority>  authorities = authentication.getAuthorities();

@@ -55,7 +55,7 @@ public class CommonController {
 	 * 변수생성 후 바로 리스트3개 입력처리.
 	*/
 	
-	@SuppressWarnings("serial")
+	@SuppressWarnings("serial") //저장할 수 있는 이미지의 종류
 	private ArrayList<String> checkImgArray = new ArrayList<String>() {
 		{
 			add("gif");
@@ -104,8 +104,8 @@ public class CommonController {
 		baos.write(buffer,0,readCount);
 	}
 	fileArray = baos.toByteArray();//바이트 단위로 되있는 변수에 아웃풋스트림내용을 저장해서 return 으로 반환
-	fis.close();//고전 자바프로그램에서는 메모리 관리를 위해서 fis파일인풋스트림변수 생성후 소멸시키는 작업이 필수
-	baos.close();//스프링프레임워크 기반의 프로그램구조에서는 close와 같은 메모리관리가 할 필요없습니다. = 스프링에는 가비지컬렉트기능이 내장.
+	fis.close();//고전 자바프로그램=> 메모리 관리를 위해 fis파일인풋스트림변수 생성 후 소멸시키는 작업이 필수
+	baos.close();//스프링프레임워크 기반=> close와 같은 메모리관리가 할 필요X = 스프링에는 가비지컬렉트기능이 내장.
 	
 	final HttpHeaders headers = new HttpHeaders(); //크롬 개발자 도구 >네트워크>image_preview>헤더탭확인
 	//파일 확장자 구하기
@@ -167,11 +167,10 @@ public class CommonController {
 
 
 	//REST-API컨트롤러 사용 
-	//아래는 Rest-API백엔드 단. //Ajax(jsp)부분은 Rest-API의 프로트엔드 단.
+	//Rest-API백엔드 단. <=> Ajax(jsp)부분은 Rest-API의 프로트엔드 단.
 	@RequestMapping(value="/id_check",method=RequestMethod.GET)
 	
-	//@ResponseBody애노테이션은 json텍스트데이터를 반환하는 역할.
-	@ResponseBody
+	@ResponseBody //@ResponseBody애노테이션은 json텍스트데이터를 반환하는 역할.
 	public String id_check(@RequestParam("user_id") String user_id) {
 		String result = "0"; //(중복값X)아이디 중복값을 체크하는 변수기본값은 중복값 없음.
 		//REST-API서비스에서는 스프링을 통해서 Ajax로 에러메세지를 받을 수 없기 때문에 여기서 에러 처리를 해야함.
@@ -187,7 +186,7 @@ public class CommonController {
 		return result; //에러 -1 //성공 0 ,1
 	}
 	
-	@Transactional
+	@Transactional //트랜젝션은 아래 구현한 메서드를 묶는다는 의미
 	@RequestMapping(value="/file_delete",method=RequestMethod.POST)
 	@ResponseBody //메서드 응답을 내용만 반환 받겠다고 명시-> RestAPI에서는 직접 try,catch사용. Spring(throws Exception)으로 보내면 마음대로 조절 어려움.
 	public String file_delete(@RequestParam("save_file_name") String save_file_name) {
