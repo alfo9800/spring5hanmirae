@@ -23,7 +23,7 @@ where table_b.rnum > (#{pageVO.queryStartNo}/#{pageVO.queryPerPageNum})* #{pageV
 </select>
 
 <update id="updateCountReply">
-update tbl_board set 
+update tbl_board set reply_count = (select count(*) from tbl_reply where bno = #{bno})
 where bno = #{bno}
 </update>
 
