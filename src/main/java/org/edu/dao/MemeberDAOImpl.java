@@ -60,6 +60,12 @@ public class MemeberDAOImpl implements IF_MemberDAO {
 		return sqlSession.selectOne("memberMapper.countMember", pageVO);
 	}
 
+	@Override
+	public List<MemberVO> testJob() throws Exception {
+		// mapper.xml에 접근하는 방법
+		return sqlSession.selectList("memberMapper.testJob");
+	}
+
 	
 	
 	
