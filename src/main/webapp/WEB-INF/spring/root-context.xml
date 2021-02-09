@@ -155,11 +155,33 @@
 	    <!-- 월-금 오전 8시부터 23(미국시간0-14)시까지 사이에 20분 간격으로 실행 참조: https://nhj12311.tistory.com/283 -->
 	    <property name="cronExpression" value="0 0/20 23,0-14 ? * MON,TUE,WED,THU,FRI" />
 	</bean>
+	
+	<bean id="testJob" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<!-- 실행 메서드가 존재하는 서비스 애노테이션클래를 지정  -->
+		<property name="targetObject" ref="memberServiceImpl" />
+		<!-- 주기적으로 실행할 위 서비스클래스에서 생성한 메서드 지정 -->
+		<property name="targetMethod" value="testJob" />
+		<!-- 동시실행을 방지하는 옵션 -->
+		<property name="concurrent" value="false" />
+	</bean>
+	
+	<bean id="testJobTrigger" class="org.springframework.scheduling.quartz.SimpleTriggerFactoryBean">
+		<property name="jobDetail" ref="testJob" />
+		
+		<!-- 톰캣이 시작하고 1분후에 실행되도록 처리 -->
+		<property name="startDelay" value="60000" />
+		<!-- 매 24시간마다 864000000(밀리초) 무조건 실행하도록 설정 -->
+		<property name="repeatInterval" value="60000" />	
+	</bean>
+	
 	<!-- 배치작업 테스트용 스케줄러 -->
 	<bean id="herokuJobScheduler" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
 	    <property name="triggers">
 	        <!-- 앞에서 설정한 트리거를 등록합니다. 필요하면 여러개 만들어서 등록하면 됩니다. -->
-	        <list><ref bean="herokuJobTrigger" /></list>
+	        <list>
+	        <ref bean="herokuJobTrigger" />
+	        <ref bean="testJobTrigger" />
+	        </list>
 	    </property>
 	</bean>
 	

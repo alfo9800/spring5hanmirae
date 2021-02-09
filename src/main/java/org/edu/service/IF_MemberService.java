@@ -21,4 +21,7 @@ public interface IF_MemberService {
 	
 	//스프링 스케쥴 모듈을 이용해서 실행 메서드 생성
 	public void herokuJobMethod() throws Exception;
+	
+	//6개월동안 회원정보 수정이 없는 사용자 목록 출력
+	public void testJob() throws Exception;
 }
